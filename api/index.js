@@ -47,6 +47,7 @@ app.post("/api/contact", async (req, res) => {
       .json({
         success: false,
         message: "Failed to send message, Please try again later!",
+        error: err
       });
   }
 
