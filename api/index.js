@@ -7,7 +7,8 @@ require("dotenv").config();
 
 app.use(
     cors({
-        origin : ['http://localhost:5173', 'https://falguni.netlify.app']
+        origin : ['http://localhost:5173', 'https://falguni.netlify.app'],
+        credentials : true,
     })
 );
 app.use(express.json());
