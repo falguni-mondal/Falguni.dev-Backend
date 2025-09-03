@@ -14,7 +14,13 @@ app.use(
 app.use(express.json());
 
 app.post("/contact", async (req, res) => {
-  res.status(200).json("Running!");
+  const {email, message} = req.body;
+  res.status(200).json({
+    message: "Running!!",
+    data : {
+      email, message
+    }
+  });
 });
 
 module.exports = app;
