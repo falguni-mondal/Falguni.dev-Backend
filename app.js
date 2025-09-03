@@ -14,13 +14,47 @@ app.use(
 app.use(express.json());
 
 app.post("/contact", async (req, res) => {
-  const {email, message} = req.body;
-  res.status(200).json({
-    message: "Running!!",
-    data : {
-      email, message
-    }
-  });
+  const { email, message } = req.body;
+
+  if (!email || !message) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Email and Message are required!" });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: email,
+      to: process.env.EMAIL,
+      subject: "Mail from Portfolio",
+      text: `${email} : ${message}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ success: true, message: "Message has been sent!" });
+  } catch (err) {
+    console.error(`Error : ${err}`);
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Failed to send message, Please try again later!",
+      });
+  }
+
+  
 });
+
+app.get("/ping" , (req, res) => {
+  res.json({message: "pong!"});
+})
 
 module.exports = app;
