@@ -53,8 +53,8 @@ app.post("/contact", async (req, res) => {
   
 });
 
-app.get("/ping" , (req, res) => {
-  res.json({message: "pong!"});
+app.get("/" , (req, res) => {
+  res.send("Hello Hero😎");
 })
 
 module.exports = app;
