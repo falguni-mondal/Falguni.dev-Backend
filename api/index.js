@@ -13,7 +13,7 @@ app.use(
 );
 app.use(express.json());
 
-app.post("/contact", async (req, res) => {
+app.post("/api/contact", async (req, res) => {
   const { email, message } = req.body;
 
   if (!email || !message) {
